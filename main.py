@@ -55,8 +55,9 @@ def main():
             try:
                 with open(filename, "r", encoding="utf-8") as f:
                     for line in f:
-                        if line.strip() and "No bridges available" not in line:
-                            file_bridges.add(line.strip())
+                        line = line.strip()
+                        if line:
+                            file_bridges.add(line)
             except:
                 pass
 
@@ -72,7 +73,7 @@ def main():
                     lines = [line.strip() for line in raw_text.split("\n") if line.strip()]
                     
                     for line in lines:
-                        if line and not line.startswith("#") and "No bridges available" not in line:
+                        if line and not line.startswith("#"):
                             fetched_bridges.add(line)
                             
                             if line not in history:
@@ -86,11 +87,16 @@ def main():
         except Exception as e:
             log(f"Connection error for {filename}: {e}")
 
-        if fetched_bridges:
+        filtered_bridges = set()
+        for bridge in fetched_bridges:
+            if "No bridges available" not in bridge:
+                filtered_bridges.add(bridge)
+
+        if filtered_bridges:
             with open(filename, "w", encoding="utf-8") as f:
-                for bridge in sorted(fetched_bridges):
+                for bridge in sorted(filtered_bridges):
                     f.write(bridge + "\n")
-            log(f"Updated {filename}: {len(fetched_bridges)} bridges.")
+            log(f"Updated {filename}: {len(filtered_bridges)} bridges.")
         else:
             with open(filename, "w", encoding="utf-8") as f:
                 f.write("")
@@ -113,7 +119,10 @@ def main():
                 f.write(bridge + "\n")
         log(f"Recent 24h file generated with {len(recent_bridges)} bridges.")
     else:
-        log("No bridges found in last 24 hours. Skipping recent file creation.")
+        if os.path.exists(RECENT_FILE):
+            with open(RECENT_FILE, "w", encoding="utf-8") as f:
+                f.write("")
+        log("No bridges found in last 24 hours. Recent file cleared.")
 
     save_history(history)
 
