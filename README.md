@@ -2,7 +2,6 @@
 
 This repository automatically collects, validates, and archives Tor bridges. A GitHub Action runs hourly to fetch new bridges from the official Tor Project and appends unique entries to the lists.
 
-**Note:** This is an accumulative archive. New bridges are added to the files without deleting the old ones, creating a comprehensive list of potential connection points.
 
 ## 📂 Bridge Lists (Raw Links)
 
