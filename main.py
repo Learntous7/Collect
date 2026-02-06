@@ -5,6 +5,8 @@ import re
 import socket
 import concurrent.futures
 import time
+import ipaddress
+import ssl
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 
@@ -21,10 +23,10 @@ HISTORY_FILE = "bridge_history.json"
 RECENT_HOURS = 72
 HISTORY_RETENTION_DAYS = 30
 REPO_URL = "https://raw.githubusercontent.com/Delta-Kronecker/Tor-Bridges-Collector/refs/heads/main"
-MAX_WORKERS = 30
-CONNECTION_TIMEOUT = 25
+MAX_WORKERS = 80
+CONNECTION_TIMEOUT = 20
 MAX_RETRIES = 5
-SOCKET_RETRY_DELAY = 2
+SSL_TIMEOUT = 8
 
 def log(message):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -37,78 +39,208 @@ def is_valid_bridge_line(line):
         return False
     if len(line) < 10:
         return False
-    return bool(re.search(r'\d+\.\d+\.\d+\.\d+|\[.*\]', line))
+    return True
 
-def extract_ip_port(line):
-    ipv6_match = re.search(r'\[(.*?)\]:(\d+)', line)
-    if ipv6_match:
-        return ipv6_match.group(1), int(ipv6_match.group(2))
+def extract_connection_info(bridge_line):
+    bridge_line = bridge_line.strip()
     
-    ipv4_match = re.search(r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}):(\d+)', line)
-    if ipv4_match:
-        return ipv4_match.group(1), int(ipv4_match.group(2))
+    if not bridge_line or len(bridge_line) < 5:
+        return None, None, None
     
-    return None, None
-
-def test_connection_with_fallback(bridge_line):
-    if not bridge_line or len(bridge_line) < 8:
-        return None
+    transport = None
+    host = None
+    port = None
     
-    extracted_ip, extracted_port = extract_ip_port(bridge_line)
+    if bridge_line.startswith("obfs4"):
+        transport = "obfs4"
+        parts = bridge_line.split()
+        if len(parts) >= 2:
+            host_port = parts[1]
+            if host_port.startswith("["):
+                match = re.search(r'\[(.*?)\]:(\d+)', host_port)
+                if match:
+                    host = match.group(1)
+                    port = int(match.group(2))
+            else:
+                match = re.search(r'([^:]+):(\d+)', host_port)
+                if match:
+                    host = match.group(1)
+                    port = int(match.group(2))
     
-    if not extracted_ip or not extracted_port:
-        return None
-    
-    if "webtunnel" in bridge_line.lower():
-        host = extracted_ip
-        port = extracted_port
+    elif bridge_line.startswith("webtunnel"):
+        transport = "webtunnel"
+        parts = bridge_line.split()
+        if len(parts) >= 2:
+            host_port = parts[1]
+            if host_port.startswith("["):
+                match = re.search(r'\[(.*?)\]:(\d+)', host_port)
+                if match:
+                    host = match.group(1)
+                    port = int(match.group(2))
+            else:
+                match = re.search(r'([^:]+):(\d+)', host_port)
+                if match:
+                    host = match.group(1)
+                    port = int(match.group(2))
         
-        for attempt in range(MAX_RETRIES):
-            try:
-                sock = socket.create_connection((host, port), timeout=CONNECTION_TIMEOUT + (attempt * 5))
-                sock.settimeout(CONNECTION_TIMEOUT + 10)
-                
+        if not port:
+            port = 443
+    
+    else:
+        transport = "vanilla"
+        parts = bridge_line.split()
+        if len(parts) >= 1:
+            host_port = parts[0]
+            if host_port.startswith("["):
+                match = re.search(r'\[(.*?)\]:(\d+)', host_port)
+                if match:
+                    host = match.group(1)
+                    port = int(match.group(2))
+            else:
+                match = re.search(r'([^:]+):(\d+)', host_port)
+                if match:
+                    host = match.group(1)
+                    port = int(match.group(2))
+    
+    return host, port, transport
+
+def test_webtunnel_ssl(host, port, timeout):
+    try:
+        context = ssl.create_default_context()
+        context.check_hostname = False
+        context.verify_mode = ssl.CERT_NONE
+        context.minimum_version = ssl.TLSVersion.TLSv1_2
+        
+        sock = socket.create_connection((host, port), timeout=timeout)
+        ssl_sock = context.wrap_socket(sock, server_hostname=host)
+        ssl_sock.settimeout(SSL_TIMEOUT)
+        
+        ssl_sock.send(b"GET / HTTP/1.1\r\nHost: " + host.encode() + b"\r\n\r\n")
+        response = ssl_sock.recv(1024)
+        
+        ssl_sock.close()
+        return True
+    except Exception as e:
+        return False
+
+def test_tcp_connection(host, port, timeout, transport):
+    for attempt in range(MAX_RETRIES):
+        try:
+            log(f"  Testing {host}:{port} ({transport}) - Attempt {attempt + 1}/{MAX_RETRIES}")
+            
+            sock = socket.create_connection((host, port), timeout=timeout)
+            sock.settimeout(3)
+            
+            if transport == "webtunnel":
                 try:
                     sock.send(b"GET / HTTP/1.0\r\n\r\n")
                     response = sock.recv(1024)
                     if response:
                         sock.close()
-                        return bridge_line
+                        return True
                 except:
                     pass
-                
-                sock.close()
-                return bridge_line
-            except (socket.timeout, socket.error, ConnectionRefusedError, OSError) as e:
-                if attempt < MAX_RETRIES - 1:
-                    time.sleep(SOCKET_RETRY_DELAY + attempt)
-                continue
-        return None
+            
+            sock.close()
+            return True
+            
+        except socket.timeout:
+            log(f"  Timeout connecting to {host}:{port}")
+            if attempt < MAX_RETRIES - 1:
+                time.sleep(1)
+            continue
+        except ConnectionRefusedError:
+            log(f"  Connection refused by {host}:{port}")
+            if attempt < MAX_RETRIES - 1:
+                time.sleep(0.5)
+            continue
+        except OSError as e:
+            log(f"  OS error connecting to {host}:{port}: {str(e)}")
+            if attempt < MAX_RETRIES - 1:
+                time.sleep(0.5)
+            continue
+        except Exception as e:
+            log(f"  Error connecting to {host}:{port}: {str(e)}")
+            if attempt < MAX_RETRIES - 1:
+                time.sleep(0.5)
+            continue
     
+    return False
+
+def test_single_bridge(bridge_line):
+    host, port, transport = extract_connection_info(bridge_line)
+    
+    if not host or not port:
+        log(f"  Invalid bridge format: {bridge_line[:50]}...")
+        return False
+    
+    log(f"Testing bridge: {bridge_line[:80]}...")
+    
+    try:
+        ip_obj = ipaddress.ip_address(host)
+        is_ipv6 = isinstance(ip_obj, ipaddress.IPv6Address)
+    except ValueError:
+        try:
+            resolved = socket.getaddrinfo(host, port, socket.AF_UNSPEC, socket.SOCK_STREAM)
+            if not resolved:
+                log(f"  Could not resolve host: {host}")
+                return False
+            is_ipv6 = any(addr[0] == socket.AF_INET6 for addr in resolved)
+        except:
+            log(f"  DNS resolution failed for: {host}")
+            return False
+    
+    timeout = CONNECTION_TIMEOUT
+    
+    if transport == "webtunnel":
+        if test_tcp_connection(host, port, timeout, transport) or test_webtunnel_ssl(host, port, timeout):
+            log(f"  ✓ WebTunnel {host}:{port} is working")
+            return True
     else:
-        host = extracted_ip
-        port = extracted_port
+        if test_tcp_connection(host, port, timeout, transport):
+            log(f"  ✓ {transport} {host}:{port} is working")
+            return True
+    
+    log(f"  ✗ {transport} {host}:{port} failed all connection attempts")
+    return False
+
+def test_bridge_batch(bridge_list, target_name):
+    if not bridge_list:
+        log(f"No bridges to test for {target_name}")
+        return []
+    
+    log(f"\n{'='*60}")
+    log(f"STARTING CONNECTIVITY TESTS FOR: {target_name}")
+    log(f"Total bridges to test: {len(bridge_list)}")
+    log(f"{'='*60}")
+    
+    successful = []
+    
+    with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+        future_to_bridge = {executor.submit(test_single_bridge, bridge): bridge for bridge in bridge_list}
         
-        for attempt in range(MAX_RETRIES):
+        for i, future in enumerate(concurrent.futures.as_completed(future_to_bridge)):
+            bridge = future_to_bridge[future]
             try:
-                sock = socket.create_connection((host, port), timeout=CONNECTION_TIMEOUT + (attempt * 3))
-                sock.close()
-                return bridge_line
-            except (socket.timeout, socket.error, ConnectionRefusedError, OSError) as e:
-                if attempt < MAX_RETRIES - 1:
-                    time.sleep(SOCKET_RETRY_DELAY)
-                
-                if "IPv6" in bridge_line:
-                    try:
-                        sock_v6 = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
-                        sock_v6.settimeout(CONNECTION_TIMEOUT + 10)
-                        sock_v6.connect((host, port, 0, 0))
-                        sock_v6.close()
-                        return bridge_line
-                    except:
-                        continue
-                continue
-        return None
+                if future.result():
+                    successful.append(bridge)
+            except Exception as e:
+                log(f"Exception testing bridge: {e}")
+            
+            if (i + 1) % 10 == 0:
+                log(f"Progress: {i + 1}/{len(bridge_list)} tested, {len(successful)} successful so far")
+    
+    log(f"\nTest results for {target_name}:")
+    log(f"  Total tested: {len(bridge_list)}")
+    log(f"  Successful: {len(successful)}")
+    log(f"  Failed: {len(bridge_list) - len(successful)}")
+    
+    if successful:
+        log(f"Sample of working bridges ({min(5, len(successful))} of {len(successful)}):")
+        for i, bridge in enumerate(successful[:5]):
+            log(f"  {i+1}. {bridge[:100]}...")
+    
+    return successful
 
 def load_history():
     if os.path.exists(HISTORY_FILE):
@@ -152,7 +284,7 @@ This repository automatically collects, validates, and archives Tor bridges. A G
 ## 🔥 Bridge Lists
 
 ### ✅ Tested & Active (Recommended)
-These bridges from the archive have passed a TCP connectivity test (3 retries, 10s timeout) during the last run.
+These bridges from the archive have passed a TCP connectivity test (5 retries, 20s timeout) during the last run.
 
 | Transport | IPv4 (Tested) | Count | IPv6 (Tested) | Count |
 | :--- | :--- | :--- | :--- | :--- |
@@ -198,13 +330,22 @@ def main():
     recent_cutoff_time = datetime.now() - timedelta(hours=RECENT_HOURS)
     stats = {}
     
-    log("Starting Bridge Scraper Session...")
+    log("\n" + "="*80)
+    log("STARTING TOR BRIDGES COLLECTOR SESSION")
+    log("="*80)
 
     for target in TARGETS:
         url = target["url"]
         filename = target["file"]
         recent_filename = filename.replace(".txt", f"_{RECENT_HOURS}h.txt")
         tested_filename = filename.replace(".txt", "_tested.txt")
+        transport_type = target["type"]
+        ip_version = target["ip"]
+        
+        log(f"\n{'='*60}")
+        log(f"PROCESSING: {transport_type} - {ip_version}")
+        log(f"URL: {url}")
+        log(f"{'='*60}")
         
         existing_bridges = set()
         if os.path.exists(filename):
@@ -214,11 +355,13 @@ def main():
                         line = line.strip()
                         if is_valid_bridge_line(line):
                             existing_bridges.add(line)
-            except:
-                pass
+                log(f"Loaded {len(existing_bridges)} existing bridges from {filename}")
+            except Exception as e:
+                log(f"Error loading existing bridges: {e}")
 
         fetched_bridges = set()
         try:
+            log(f"Fetching bridges from {url}")
             response = session.get(url, timeout=45)
             if response.status_code == 200:
                 soup = BeautifulSoup(response.text, "html.parser")
@@ -234,6 +377,8 @@ def main():
                             
                             if line not in history:
                                 history[line] = datetime.now().isoformat()
+                    
+                    log(f"Fetched {len(fetched_bridges)} new bridges from Tor Project")
                 else:
                     log(f"Warning: No bridge container for {filename}.")
             else:
@@ -242,16 +387,19 @@ def main():
         except Exception as e:
             log(f"Connection error for {filename}: {e}")
 
-        all_bridges = existing_bridges.union(fetched_bridges)
+        all_bridges = list(existing_bridges.union(fetched_bridges))
+        
+        log(f"Total bridges for {filename}: {len(all_bridges)}")
         
         if all_bridges:
             with open(filename, "w", encoding="utf-8") as f:
                 for bridge in sorted(all_bridges):
                     f.write(bridge + "\n")
-            log(f"Processed {filename}: Total {len(all_bridges)}")
+            log(f"Saved {len(all_bridges)} bridges to {filename}")
         else:
             with open(filename, "w", encoding="utf-8") as f:
                 f.write("")
+            log(f"No bridges available for {filename}")
 
         recent_bridges = []
         for bridge in all_bridges:
@@ -263,45 +411,66 @@ def main():
                 except ValueError:
                     pass
         
+        log(f"Recent bridges (last {RECENT_HOURS}h): {len(recent_bridges)}")
+        
         if recent_bridges:
             with open(recent_filename, "w", encoding="utf-8") as f:
                 for bridge in sorted(recent_bridges):
                     f.write(bridge + "\n")
+            log(f"Saved {len(recent_bridges)} recent bridges to {recent_filename}")
         else:
             with open(recent_filename, "w", encoding="utf-8") as f:
                 f.write("")
         
-        log(f"Testing connectivity for {filename} ({len(all_bridges)} bridges)...")
-        tested_bridges = []
-        if all_bridges:
-            with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
-                future_to_bridge = {executor.submit(test_connection_with_fallback, bridge): bridge for bridge in all_bridges}
-                for future in concurrent.futures.as_completed(future_to_bridge):
-                    bridge = future_to_bridge[future]
-                    try:
-                        result = future.result()
-                        if result:
-                            tested_bridges.append(result)
-                    except Exception:
-                        pass
+        tested_bridges = test_bridge_batch(all_bridges, f"{transport_type} {ip_version}")
         
         if tested_bridges:
             with open(tested_filename, "w", encoding="utf-8") as f:
                 for bridge in sorted(tested_bridges):
                     f.write(bridge + "\n")
-            log(f"   -> {len(tested_bridges)} bridges passed connectivity test.")
+            log(f"Saved {len(tested_bridges)} working bridges to {tested_filename}")
         else:
             with open(tested_filename, "w", encoding="utf-8") as f:
                 f.write("")
-            log(f"   -> No bridges passed connectivity test for {filename}.")
+            log(f"No working bridges found for {filename}")
 
         stats[filename] = len(all_bridges)
         stats[recent_filename] = len(recent_bridges)
         stats[tested_filename] = len(tested_bridges)
+        
+        log(f"\nSummary for {transport_type} - {ip_version}:")
+        log(f"  Archive: {stats[filename]} bridges")
+        log(f"  Recent ({RECENT_HOURS}h): {stats[recent_filename]} bridges")
+        log(f"  Working: {stats[tested_filename]} bridges")
+        log(f"{'='*60}")
 
+    log(f"\n{'='*80}")
+    log("SESSION SUMMARY")
+    log(f"{'='*80}")
+    
+    summary_table = []
+    summary_table.append("Type               | IPv4 Total | IPv4 Recent | IPv4 Working | IPv6 Total | IPv6 Recent | IPv6 Working")
+    summary_table.append("-" * 95)
+    
+    for transport in ["obfs4", "WebTunnel", "Vanilla"]:
+        ipv4_total = stats.get(f"{transport.lower()}.txt", 0)
+        ipv4_recent = stats.get(f"{transport.lower()}_{RECENT_HOURS}h.txt", 0)
+        ipv4_working = stats.get(f"{transport.lower()}_tested.txt", 0)
+        ipv6_total = stats.get(f"{transport.lower()}_ipv6.txt", 0)
+        ipv6_recent = stats.get(f"{transport.lower()}_ipv6_{RECENT_HOURS}h.txt", 0)
+        ipv6_working = stats.get(f"{transport.lower()}_ipv6_tested.txt", 0)
+        
+        summary_table.append(f"{transport:<18} | {ipv4_total:>10} | {ipv4_recent:>11} | {ipv4_working:>12} | {ipv6_total:>10} | {ipv6_recent:>11} | {ipv6_working:>12}")
+    
+    for line in summary_table:
+        log(line)
+    
     save_history(history)
     update_readme(stats)
-    log("Session Finished.")
+    
+    log(f"\n{'='*80}")
+    log("SESSION COMPLETED")
+    log(f"{'='*80}")
 
 if __name__ == "__main__":
     main()
