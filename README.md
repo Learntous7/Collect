@@ -1,6 +1,6 @@
 # Tor Bridges Collector & Archive
 
-**Last Updated:** 2026-02-06 17:10 UTC
+**Last Updated:** 2026-02-06 17:44 UTC
 
 This repository automatically collects, validates, and archives Tor bridges. A GitHub Action runs every 1 hours to fetch new bridges from the official Tor Project.
 
@@ -13,7 +13,7 @@ This repository automatically collects, validates, and archives Tor bridges. A G
 ## 🔥 Bridge Lists
 
 ### ✅ Tested & Active (Recommended)
-These bridges from the archive have passed a TCP connectivity test (3 retries, 10s timeout) during the last run.
+These bridges from the archive have passed a TCP connectivity test (5 retries, 20s timeout) during the last run.
 
 | Transport | IPv4 (Tested) | Count | IPv6 (Tested) | Count |
 | :--- | :--- | :--- | :--- | :--- |
