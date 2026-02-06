@@ -42,12 +42,6 @@ jobs:
               mv "$file" bridges/
             fi
           done
-          
-          echo "Checking bridges directory contents:"
-          ls -la bridges/
-          
-          echo "Checking root directory contents:"
-          ls -la
 
       - name: Verify and count bridges
         run: |
@@ -60,18 +54,18 @@ jobs:
           
           for file in bridges/*.txt; do
             if [ -f "$file" ]; then
-              count=$(wc -l < "$file" || echo "0")
+              count=$(wc -l < "$file" 2>/dev/null || echo "0")
               filename=$(basename "$file")
               
               if [[ "$filename" == *"_tested.txt" ]]; then
                 working_count=$((working_count + count))
-                echo "✅ $filename: $count working bridges"
+                echo "✅ $filename: $count bridges"
               elif [[ "$filename" == *"_72h.txt" ]]; then
                 recent_count=$((recent_count + count))
-                echo "🆕 $filename: $count recent bridges"
+                echo "🆕 $filename: $count bridges"
               elif [[ "$filename" == *.txt && ! "$filename" == *"_tested.txt" && ! "$filename" == *"_72h.txt" ]]; then
                 total_count=$((total_count + count))
-                echo "📁 $filename: $count total bridges"
+                echo "📁 $filename: $count bridges"
               fi
             fi
           done
@@ -81,28 +75,15 @@ jobs:
           echo "Total bridges: $total_count"
           echo "Working bridges: $working_count"
           echo "Recent bridges (72h): $recent_count"
-          
-          if [ $total_count -gt 0 ]; then
-            success_rate=$(echo "scale=2; $working_count * 100 / $total_count" | bc)
-            recent_rate=$(echo "scale=2; $recent_count * 100 / $total_count" | bc)
-            echo "Success rate: $success_rate%"
-            echo "New bridge rate: $recent_rate%"
-          fi
 
       - name: Commit and Push changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          echo "Checking git status..."
-          git status
-          
-          echo "Adding files..."
           git add bridges/ README.md
           
-          echo "Committing changes..."
           timestamp=$(date -u +"%Y-%m-%d %H:%M UTC")
           git commit -m "📡 Update bridges - $timestamp [skip ci]" || echo "No changes to commit"
           
-          echo "Pushing changes..."
           git push
