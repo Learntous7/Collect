@@ -18,7 +18,7 @@ These bridges from the archive have passed a TCP connectivity test (3 retries, 1
 | :--- | :--- | :--- |
 | **obfs4** | [obfs4_tested.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/obfs4_tested.txt) | **74** |
 | **WebTunnel** | [webtunnel_tested.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/webtunnel_tested.txt) | **27** |
-| **Vanilla** | [vanilla_tested.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/vanilla_tested.txt) | **78** |
+| **Vanilla** | [vanilla_tested.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/vanilla_tested.txt) | **79** |
 
 ### 🔥 Fresh Bridges (Last 72 Hours)
 Bridges discovered within the last 3 days.
@@ -36,7 +36,7 @@ History of all collected bridges.
 | :--- | :--- | :--- | :--- | :--- |
 | **obfs4** | [obfs4.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/obfs4.txt) | **92** | [obfs4_ipv6.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/obfs4_ipv6.txt) | **49** |
 | **WebTunnel** | [webtunnel.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/webtunnel.txt) | **35** | [webtunnel_ipv6.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/webtunnel_ipv6.txt) | **35** |
-| **Vanilla** | [vanilla.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/vanilla.txt) | **131** | [vanilla_ipv6.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/vanilla_ipv6.txt) | **0** |
+| **Vanilla** | [vanilla.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/vanilla.txt) | **132** | [vanilla_ipv6.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/vanilla_ipv6.txt) | **0** |
 
 
 ## 🔥 Disclaimer
