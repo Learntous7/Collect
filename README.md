@@ -16,27 +16,27 @@ These bridges from the archive have passed a TCP connectivity test (3 retries, 1
 
 | Transport | IPv4 (Tested) | Count | 
 | :--- | :--- | :--- |
-| **obfs4** | [obfs4_tested.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/obfs4_tested.txt) | **97** |
-| **WebTunnel** | [webtunnel_tested.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/webtunnel_tested.txt) | **60** |
-| **Vanilla** | [vanilla_tested.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/vanilla_tested.txt) | **106** |
+| **obfs4** | [obfs4_tested.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/obfs4_tested.txt) | **98** |
+| **WebTunnel** | [webtunnel_tested.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/webtunnel_tested.txt) | **59** |
+| **Vanilla** | [vanilla_tested.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/vanilla_tested.txt) | **107** |
 
 ### 🔥 Fresh Bridges (Last 72 Hours)
 Bridges discovered within the last 3 days.
 
 | Transport | IPv4 (72h) | Count | IPv6 (72h) | Count |
 | :--- | :--- | :--- | :--- | :--- |
-| **obfs4** | [obfs4_72h.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/obfs4_72h.txt) | **6** | [obfs4_ipv6_72h.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/obfs4_ipv6_72h.txt) | **6** |
-| **WebTunnel** | [webtunnel_72h.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/webtunnel_72h.txt) | **6** | [webtunnel_ipv6_72h.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/webtunnel_ipv6_72h.txt) | **60** |
-| **Vanilla** | [vanilla_72h.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/vanilla_72h.txt) | **5** | [vanilla_ipv6_72h.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/vanilla_ipv6_72h.txt) | **1** |
+| **obfs4** | [obfs4_72h.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/obfs4_72h.txt) | **6** | [obfs4_ipv6_72h.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/obfs4_ipv6_72h.txt) | **5** |
+| **WebTunnel** | [webtunnel_72h.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/webtunnel_72h.txt) | **4** | [webtunnel_ipv6_72h.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/webtunnel_ipv6_72h.txt) | **60** |
+| **Vanilla** | [vanilla_72h.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/vanilla_72h.txt) | **6** | [vanilla_ipv6_72h.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/vanilla_ipv6_72h.txt) | **0** |
 
 ### 🔥 Full Archive (Accumulative)
 History of all collected bridges.
 
 | Transport | IPv4 (All Time) | Count | IPv6 (All Time) | Count |
 | :--- | :--- | :--- | :--- | :--- |
-| **obfs4** | [obfs4.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/obfs4.txt) | **137** | [obfs4_ipv6.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/obfs4_ipv6.txt) | **92** |
+| **obfs4** | [obfs4.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/obfs4.txt) | **139** | [obfs4_ipv6.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/obfs4_ipv6.txt) | **92** |
 | **WebTunnel** | [webtunnel.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/webtunnel.txt) | **71** | [webtunnel_ipv6.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/webtunnel_ipv6.txt) | **71** |
-| **Vanilla** | [vanilla.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/vanilla.txt) | **173** | [vanilla_ipv6.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/vanilla_ipv6.txt) | **3** |
+| **Vanilla** | [vanilla.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/vanilla.txt) | **175** | [vanilla_ipv6.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/vanilla_ipv6.txt) | **3** |
 
 
 ## 🔥 Disclaimer
