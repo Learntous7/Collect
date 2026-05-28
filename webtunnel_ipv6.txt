@@ -51,6 +51,7 @@ webtunnel [2001:db8:63b4:6bd7:a357:7858:898e:718c]:443 059AEB126918A33B8246E8136
 webtunnel [2001:db8:63b9:6800:b3f0:e360:b90c:2953]:443 0CCD302CACD212634B21499C6D4243B9363B6FD4 url=https://johns-tech-garden.com/bCnGKCIpQGga4LDzNH7fgZtD ver=0.0.4
 webtunnel [2001:db8:6589:5555:e62f:68ab:8983:8e01]:443 98422E9D1648FFDB8F16C06CF58CD64B6C03A003 url=https://bridge-es.jmrp.io/hzry0yMJazasJuZZP09uCUtn ver=0.0.4
 webtunnel [2001:db8:67ae:eddf:66cd:cbd0:eab4:8143]:443 439C2F45FA99C9255F079ACBF59060D3EC2C3637 url=https://push.hieronymus.uk/sheflashedthetorchasasignal ver=0.0.4
+webtunnel [2001:db8:6d8e:6634:691b:dc7f:6c25:fb29]:443 B21C146831B809CE3207F177CE39E6CA5460627E url=https://bubatz.legal/maTXktEDbbS5FInhNhO2TPtF ver=0.0.3
 webtunnel [2001:db8:6d91:1d3e:230b:9d98:8e29:eefc]:443 C762244C9E351B4A63EF1EF4585A38535C3023D8 url=https://anastasia.anondns.net/atkzL9N85rspiiRudpeCh9gq ver=0.0.1
 webtunnel [2001:db8:6ebc:2eba:25e:28d6:4d14:6cfa]:443 28F5A0325B50F3EFB5FCC73194FCBF9D4972248E url=https://tired.social/0r2DRKvagEsZtvZgItdN0fo1 ver=0.0.4
 webtunnel [2001:db8:6ebc:2eba:25e:28d6:4d14:6cfa]:443 60EA71C9493B9B5792CF12F684273B1B06DD156C url=https://tired.social/0r2DRKvagEsZtvZgItdN0fo1 ver=0.0.3
@@ -78,6 +79,7 @@ webtunnel [2001:db8:95c5:3954:b066:1857:29cb:1e9e]:443 1EA25E7698D191D56CD3674CE
 webtunnel [2001:db8:95c5:3954:b066:1857:29cb:1e9e]:443 EB514D4DBAA99622783EEE447C594A18CF4094A4 url=https://ddns.icmnt.net/mmU4HkDUGAxJvHykcveRPImg ver=0.0.3
 webtunnel [2001:db8:976:3d4a:a211:b114:a8e2:5b2d]:443 4F4571C3E0FD8D23C0C0AF76D63F7A5B08199A86 url=https://talnett.com/RLzWM1yDLRjlDiNxzdBQr8DR ver=0.0.3
 webtunnel [2001:db8:976:3d4a:a211:b114:a8e2:5b2d]:443 4F4571C3E0FD8D23C0C0AF76D63F7A5B08199A86 url=https://talnett.com/RLzWM1yDLRjlDiNxzdBQr8DR ver=0.0.4
+webtunnel [2001:db8:9830:b7ec:bb37:f12:ec5f:aace]:443 653AB31AC3FBEEE0B224833F2C2F6EEB2FC67FAB url= ver=0.0.4
 webtunnel [2001:db8:a0a3:3921:d668:34a7:5a6a:90f]:443 DAEFF07E181A420069F9944C12BAA0DE6FD59B6D url=https://nthpyro.dev ver=0.0.3
 webtunnel [2001:db8:a273:b501:5987:3660:5d1b:1603]:443 082B13E0A1E5D8D2585B6C84914B1810B7E884EC url=https://s3.vlue.dev/s33gf0iiidqo9lacdqzbjgy6 ver=0.0.3
 webtunnel [2001:db8:a436:6460:fa7b:318:4e8e:9de3]:443 F76C85011FD8C113AA00960BD9FC7F5B66F726A2 url=https://disobey.net/vM8i19mU4gvHOzRm33DaBNuM ver=0.0.2

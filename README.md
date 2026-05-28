@@ -16,17 +16,17 @@ These bridges from the archive have passed a TCP connectivity test (3 retries, 1
 
 | Transport | IPv4 (Tested) | Count | 
 | :--- | :--- | :--- |
-| **obfs4** | [obfs4_tested.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/obfs4_tested.txt) | **140** |
+| **obfs4** | [obfs4_tested.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/obfs4_tested.txt) | **143** |
 | **WebTunnel** | [webtunnel_tested.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/webtunnel_tested.txt) | **96** |
-| **Vanilla** | [vanilla_tested.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/vanilla_tested.txt) | **120** |
+| **Vanilla** | [vanilla_tested.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/vanilla_tested.txt) | **117** |
 
 ### 🔥 Fresh Bridges (Last 72 Hours)
 Bridges discovered within the last 3 days.
 
 | Transport | IPv4 (72h) | Count | IPv6 (72h) | Count |
 | :--- | :--- | :--- | :--- | :--- |
-| **obfs4** | [obfs4_72h.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/obfs4_72h.txt) | **6** | [obfs4_ipv6_72h.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/obfs4_ipv6_72h.txt) | **6** |
-| **WebTunnel** | [webtunnel_72h.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/webtunnel_72h.txt) | **6** | [webtunnel_ipv6_72h.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/webtunnel_ipv6_72h.txt) | **96** |
+| **obfs4** | [obfs4_72h.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/obfs4_72h.txt) | **8** | [obfs4_ipv6_72h.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/obfs4_ipv6_72h.txt) | **8** |
+| **WebTunnel** | [webtunnel_72h.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/webtunnel_72h.txt) | **8** | [webtunnel_ipv6_72h.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/webtunnel_ipv6_72h.txt) | **96** |
 | **Vanilla** | [vanilla_72h.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/vanilla_72h.txt) | **5** | [vanilla_ipv6_72h.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/vanilla_ipv6_72h.txt) | **3** |
 
 ### 🔥 Full Archive (Accumulative)
@@ -34,8 +34,8 @@ History of all collected bridges.
 
 | Transport | IPv4 (All Time) | Count | IPv6 (All Time) | Count |
 | :--- | :--- | :--- | :--- | :--- |
-| **obfs4** | [obfs4.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/obfs4.txt) | **234** | [obfs4_ipv6.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/obfs4_ipv6.txt) | **160** |
-| **WebTunnel** | [webtunnel.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/webtunnel.txt) | **125** | [webtunnel_ipv6.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/webtunnel_ipv6.txt) | **125** |
+| **obfs4** | [obfs4.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/obfs4.txt) | **236** | [obfs4_ipv6.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/obfs4_ipv6.txt) | **160** |
+| **WebTunnel** | [webtunnel.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/webtunnel.txt) | **127** | [webtunnel_ipv6.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/webtunnel_ipv6.txt) | **127** |
 | **Vanilla** | [vanilla.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/vanilla.txt) | **247** | [vanilla_ipv6.txt](https://raw.githubusercontent.com/Learntous7/Collect/refs/heads/main/vanilla_ipv6.txt) | **30** |
 
 
