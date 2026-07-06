@@ -20,6 +20,7 @@ webtunnel [2001:db8:2ce3:75bd:2da:f69f:d97a:7874]:443 CFB5DD5A5CC4AAB0435C1C5B27
 webtunnel [2001:db8:2d5a:d621:5449:a5b7:2aeb:152a]:443 5CF46063D197073DBAE982D7E953738766799D0E url=https://s.dont.icu ver=0.0.1
 webtunnel [2001:db8:2e6d:f72:cedd:e521:c579:44bf]:443 E2BC4AE4EDD648DC6736EFFEDC553759C981C5D2 url=https://wildnetwork.pro/vj987mhv9c6ng9sd876sgvn ver=0.0.1
 webtunnel [2001:db8:312a:3c9f:39b5:9b13:233d:a576]:443 F56C6CC6A0ACDC21A91B39A6553C0DD0B68A2884 url=https://relay.manupawick.men/uzUQruuMWxEDwyn5SS8q7HVd ver=0.0.3
+webtunnel [2001:db8:3506:4f42:d18a:e05e:2c90:c172]:443 C1071E13650A41F1B4A1D93C089D4EF685DD1833 url=https://masterkeef.duckdns.org/9VqR6ogd8uMUqncudbuNeHX1 ver=0.0.5
 webtunnel [2001:db8:35c8:629c:c5f9:9167:6272:2e92]:443 9D542D1BCF5994FF21ED379AA68DD691F305E03C url=https://webtunnel.offblast.org/oaxifL26HqflyooEBmgvNgmt ver=0.0.3
 webtunnel [2001:db8:35ed:b91c:d25f:5603:5c77:ebeb]:443 57C218E285D2AA1E7077859761421E9C62B9123E url=https://wtb007.unshakled.net:8443/4oeMXyIPcCVtKH7jFkEBvueX ver=0.0.3
 webtunnel [2001:db8:3606:d9c5:1fa:bff3:1d62:7465]:443 900844EDD4FCFA9F7CE18C391A777F12FBFE1C1E url=https://wt5.wtqwert.top/asdfasdf1234wt5 ver=0.0.4

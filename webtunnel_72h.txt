@@ -1,4 +1,5 @@
 webtunnel [2001:db8:2a61:dea:a9e1:2127:6f2c:5680]:443 76CAF380CD98B4640E2F2F4DD09BB8348D271C31 url=https://headhumping.jumpingcrab.com/teqzL2Muf7pnzw2qhQ3d ver=0.0.1
-webtunnel [2001:db8:4fcd:461f:cbce:edea:fb74:a1e8]:443 F799A0A458365388600F54BD44A99B5887D54911 url=https://wt.aaronstory2026.xyz:2053/vicmackey ver=0.0.4
+webtunnel [2001:db8:3506:4f42:d18a:e05e:2c90:c172]:443 C1071E13650A41F1B4A1D93C089D4EF685DD1833 url=https://masterkeef.duckdns.org/9VqR6ogd8uMUqncudbuNeHX1 ver=0.0.5
+webtunnel [2001:db8:4153:2734:a5fd:324a:77fe:7d3b]:443 91DE3D9DBAFB8A583CEE02448BBA8CADDE54735E url=https://5-ams.sports-streams.org/jdyLcFWUBl1jEjIkL2Bo2LCT ver=0.0.1
 webtunnel [2001:db8:6442:84:8e10:778c:8aaa:7a8e]:443 FDA4F037334BA25B7ECEBAC458350B588C57DA24 url=https://freeforall.camdvr.org/BrLxiuXhwTEx3qJxFEhOE3tA ver=0.0.4
 webtunnel [2001:db8:dee:4f60:9a4a:641b:71ff:7358]:443 664BEAA9A60B4C029258E4A19E13E26C6D961E0A url=https://hhynz.maledict.me/TLzq9HcRQDlLGmjHAQMff0Hu ver=0.0.5
