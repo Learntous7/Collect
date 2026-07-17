@@ -1,2 +1,2 @@
-webtunnel [2001:db8:365b:caab:1be4:d672:e78e:c09a]:443 5C4499F49EF591BB28F86DC63E48846F8E610764 url=https://mstdn.party/ou8MiapiZahngai6 ver=0.0.2
-webtunnel [2001:db8:4bf5:5825:626a:b253:3a97:7231]:443 4FA98FE9568D850B675CB828B9E84DE2E2B3B45C url=https://tor.kwe-private.net/E45hEt4K3GQCChZ4B7jfrQ2b ver=0.0.4
+webtunnel [2001:db8:714f:e9ee:d1dc:a674:3606:cfe0]:443 339281F7912780D8A7FB118A48A65FFBF92F043F url=https://test.mwumba.com/9f2jjnAR9LR1fInBy60tbS57 ver=0.0.4
+webtunnel [2001:db8:976:3d4a:a211:b114:a8e2:5b2d]:443 4F4571C3E0FD8D23C0C0AF76D63F7A5B08199A86 url=https://talnett.com/RLzWM1yDLRjlDiNxzdBQr8DR ver=0.0.5
