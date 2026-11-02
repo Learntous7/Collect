@@ -1,5 +1,5 @@
-webtunnel [2001:db8:14c2:fde6:d1a:a0b:1594:b5d4]:443 9B39F8EFD845D1A89E223F08B887F94F63B7C486 url=https://bridge.64-83-2-102.sslip.io:8443/p/2f8c1d ver=0.0.7
 webtunnel [2001:db8:2777:f8e4:5dac:f4e3:96c5:c311]:443 DF343521735ABE129910A998817B3A93AA2390FE url=https://test.coellen.xyz ver=0.0.5
 webtunnel [2001:db8:4fe2:49d2:2b7d:8576:5ede:e177]:443 C9AB6F207432161589F1B994F44FFE28FBF211E2 url=https://www.jarlaxle.de/wzZhcKoNURYF5JUssKhC25Cg ver=0.0.7
+webtunnel [2001:db8:78c0:7736:3c2c:420f:5b90:24a1]:443 6376573513627076B864E0D46F8F56250B72CE00 url=https://cats.kittyandcorgi.org/Q1xxtYW0JKZgNDbRfwQTpG4M ver=0.0.6
 webtunnel [2001:db8:90fe:ab66:632e:6253:a16d:c15b]:443 48E7FE5AD683DC5C768A5E755D0B0B79DC8EBCC2 url=https://girafe.tel/418itlP1y6FTIGNe5iMyS41A ver=0.0.5
-webtunnel [2001:db8:fbfa:48b4:5520:53e6:24b4:eca0]:443 93807A85521915D7D2BA17725C08AC39035D1741 url=https://web.localenby.is/HmlgNcBbNgRJw862bJVxZRes ver=0.0.3
+webtunnel [2001:db8:dee:4f60:9a4a:641b:71ff:7358]:443 664BEAA9A60B4C029258E4A19E13E26C6D961E0A url=https://hhynz.maledict.me/TLzq9HcRQDlLGmjHAQMff0Hu ver=0.0.5
